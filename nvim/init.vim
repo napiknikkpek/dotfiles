@@ -23,25 +23,28 @@ call dein#add('thinca/vim-themis')
 
 call dein#add('vim-jp/vital.vim')
 
+call dein#add('Shougo/vinarise.vim')
+
 call dein#add('Shougo/unite.vim')
-call dein#add('Shougo/neomru.vim')
-call dein#add('Shougo/unite-help')
-call dein#add('Shougo/vimproc.vim')
-call dein#add('Shougo/deoplete.nvim')
-
-call dein#add('Shougo/neco-vim')
-
 call dein#add('Shougo/unite-outline')
 call dein#add('tsukkee/unite-tag')
+call dein#add('Shougo/neomru.vim')
+call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 
+call dein#add('Shougo/vimfiler.vim')
+
+call dein#add('Shougo/deoplete.nvim')
 call dein#add('zchee/deoplete-clang')
+call dein#add('zchee/deoplete-jedi')
+
+call dein#add('Shougo/denite.nvim')
+
+call dein#add('Shougo/neco-vim')
 
 call dein#add('arakashic/chromatica.nvim')
 
 call dein#add('tpope/vim-surround')
 call dein#add('tpope/vim-commentary')
-
-call dein#add('Shougo/vimfiler.vim')
 
 call dein#add('tpope/vim-fugitive')
 call dein#add('airblade/vim-gitgutter')
@@ -53,8 +56,6 @@ call dein#add('AndrewRadev/splitjoin.vim')
 call dein#add('cohama/lexima.vim')
 
 call dein#add('Shougo/echodoc.vim')
-
-call dein#add('zchee/deoplete-jedi')
 
 call dein#local('~/src/vim')
 
@@ -73,11 +74,20 @@ filetype plugin indent on
 
 set runtimepath+=~/.config/nvim
 
+call denite#custom#option('default', 'prompt', '')
+call denite#custom#option('default', 'direction', 'bot')
+call denite#custom#option('default', 'mode', 'normal')
+call denite#custom#option('default', 'auto_resize', 'true')
+call denite#custom#option('default', 'reversed', 'true')
+call denite#custom#option('default', 'winheight', '30')
+call denite#custom#map('insert', '<Esc>', '<denite:quit>', 'noremap')
+call denite#custom#map('normal', '<Esc>', '<denite:quit>', 'noremap')
+
 let g:vimfiler_as_default_explorer = 1
 
 let set_compile_commands = {}
 fu! set_compile_commands.func(candidate)
-  call project#set(a:candidate.action__path)
+  call author#set(a:candidate.action__path)
 endfu
 call unite#custom#action('file', 'set_compile_commands', set_compile_commands)
 unlet set_compile_commands
@@ -107,6 +117,7 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 
+set laststatus=2
 set shortmess=aTIcF
 set completeopt=menuone,noinsert
 
@@ -128,21 +139,26 @@ let g:echodoc_enable_at_startup = 1
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 
-source './autoformat.vim'
-source './cpp.vim'
+source ~/.config/nvim/autoformat.vim
+source ~/.config/nvim/cpp.vim
 
-nnoremap <leader>f :Unite file file_rec<cr>
-nnoremap <leader>b :Unite buffer<cr>
-nnoremap <leader>l :Unite -start-insert line<cr>
+nnoremap ; :
+vnoremap ; :
+nnoremap <leader>w :w<cr>
+nnoremap <leader>q :q<cr>
+
+nnoremap <leader>f :Denite unite:file file_rec<cr>
+nnoremap <leader>b :Denite buffer<cr>
+nnoremap <leader>l :Denite -mode=insert line<cr>
 nnoremap <leader>v :VimFiler<cr>
 nnoremap <leader>ex :exe 'VimFiler -toggle -explorer '.getcwd()<cr>
-nnoremap <leader>m :Unite neomru/file<cr>
-nnoremap <leader>o :Unite outline<cr>
+nnoremap <leader>m :Denite file_mru<cr>
+nnoremap <leader>o :Denite unite:outline<cr>
 
-nnoremap <C-N> :cn<cr>
-nnoremap <C-P> :cp<cr>
+nnoremap <C-n> :cn<cr>
+nnoremap <C-p> :cp<cr>
+nnoremap <C-c> :cc<cr>
 
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
@@ -152,13 +168,21 @@ nnoremap <C-k> <C-W>k
 if has('nvim')
   nnoremap <leader>t :terminal<cr>
   tnoremap <Esc> <C-\><C-N>
-  tnoremap <C-h> <C-\><C-N><C-W>h
-  tnoremap <C-l> <C-\><C-N><C-W>l
-  tnoremap <C-j> <C-\><C-N><C-W>j
-  tnoremap <C-k> <C-\><C-N><C-W>k
+  tnoremap <C-h> <Left>
+  tnoremap <C-l> <Right>
+  tnoremap <C-j> <Down>
+  tnoremap <C-k> <Up>
 endif
 
+cnoremap <C-h> <Left>
+cnoremap <C-l> <Right>
+cnoremap <C-j> <Down>
+cnoremap <C-k> <Up>
+
+vnoremap < <gv
+vnoremap > >gv
+
 " in screen quick select
-nnoremap ; /<C-R>='\%>' . (line("w0")-1) . 'l\%<' . (line("w$")+1) . 'l'<cr>
+" nnoremap ; /<C-R>='\%>' . (line("w0")-1) . 'l\%<' . (line("w$")+1) . 'l'<cr>
 
 nnoremap <leader>ev :edit $MYVIMRC<cr>
