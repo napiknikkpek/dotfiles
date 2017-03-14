@@ -164,6 +164,11 @@ nnoremap <C-l> <C-W>l
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 
+nnoremap <C-W>h <C-W>H
+nnoremap <C-W>l <C-W>L
+nnoremap <C-W>j <C-W>J
+nnoremap <C-W>k <C-W>K
+
 if has('nvim')
   nnoremap <leader>t :terminal<cr>
   tnoremap <Esc> <C-\><C-N>
