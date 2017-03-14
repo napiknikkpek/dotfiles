@@ -122,7 +122,6 @@ set shortmess=aTIcF
 set completeopt=menuone,noinsert
 
 let mapleader=","
-let maplocalleader="-"
 
 let g:lexima_map_escape=''
 let g:lexima_no_default_rules = 1
