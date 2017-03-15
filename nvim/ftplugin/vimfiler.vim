@@ -5,4 +5,4 @@ nnoremap <buffer> <C-h> <C-W>h
 nnoremap <buffer> <C-l> <C-W>l
 nnoremap <buffer> <C-j> <C-W>j
 nnoremap <buffer> <C-k> <C-W>k
-nnoremap <buffer> gh <Plug>(vimfiler_switch_to_history_directory)
+nmap <buffer> gh <Plug>(vimfiler_switch_to_history_directory)
