@@ -176,6 +176,8 @@ if has('nvim')
   tnoremap <C-l> <Right>
   tnoremap <C-j> <Down>
   tnoremap <C-k> <Up>
+
+  tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 endif
 
 cnoremap <C-h> <Left>
