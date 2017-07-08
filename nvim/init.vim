@@ -160,8 +160,8 @@ nnoremap <leader>m :Denite file_mru<cr>
 nnoremap <leader>o :Denite unite:outline<cr>
 
 nnoremap <leader>gi :YcmCompleter GoToInclude<cr>
-nnoremap <leader>gf :YcmCompleter GoToDeclaration<cr>
-nnoremap <leader>gc :YcmCompleter GoToDefinition<cr>
+nnoremap <leader>gc :YcmCompleter GoToDeclaration<cr>
+nnoremap <leader>gf :YcmCompleter GoToDefinition<cr>
 nnoremap <leader>gt :YcmCompleter GoTo<cr>
 
 nnoremap <C-n> :cn<cr>
