@@ -33,9 +33,11 @@ call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 
 call dein#add('Shougo/vimfiler.vim')
 
-call dein#add('Shougo/deoplete.nvim')
-call dein#add('zchee/deoplete-clang')
-call dein#add('zchee/deoplete-jedi')
+call dein#add('Valloric/YouCompleteMe')
+
+" call dein#add('Shougo/deoplete.nvim')
+" call dein#add('zchee/deoplete-clang')
+" call dein#add('zchee/deoplete-jedi')
 
 call dein#add('Shougo/denite.nvim')
 
@@ -136,6 +138,8 @@ let g:chromatica#enable_at_startup = 1
 
 let g:echodoc_enable_at_startup = 1
 
+let g:ycm_server_python_interpreter = '/usr/bin/python2'
+
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<Tab>"
 
@@ -154,6 +158,11 @@ nnoremap <leader>v :VimFiler<cr>
 nnoremap <leader>ex :exe 'VimFiler -toggle -explorer '.getcwd()<cr>
 nnoremap <leader>m :Denite file_mru<cr>
 nnoremap <leader>o :Denite unite:outline<cr>
+
+nnoremap <leader>gi :YcmCompleter GoToInclude<cr>
+nnoremap <leader>gf :YcmCompleter GoToDeclaration<cr>
+nnoremap <leader>gc :YcmCompleter GoToDefinition<cr>
+nnoremap <leader>gt :YcmCompleter GoTo<cr>
 
 nnoremap <C-n> :cn<cr>
 nnoremap <C-p> :cp<cr>
