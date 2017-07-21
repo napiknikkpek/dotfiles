@@ -8,7 +8,6 @@ endif
 " Required:
 set runtimepath^=~/.config/nvim/dein/repos/github.com/Shougo/dein.vim
 
-
 " Required:
 call dein#begin(expand('~/.config/nvim/dein'))
 
@@ -77,10 +76,9 @@ filetype plugin indent on
 set runtimepath+=~/.config/nvim
 
 call denite#custom#option('default', 'prompt', '')
-call denite#custom#option('default', 'direction', 'bot')
+call denite#custom#option('default', 'direction', 'topleft')
 call denite#custom#option('default', 'mode', 'normal')
 call denite#custom#option('default', 'auto_resize', 'true')
-call denite#custom#option('default', 'reversed', 'true')
 call denite#custom#option('default', 'winheight', '30')
 call denite#custom#map('insert', '<Esc>', '<denite:quit>', 'noremap')
 call denite#custom#map('normal', '<Esc>', '<denite:quit>', 'noremap')
@@ -138,7 +136,7 @@ let g:chromatica#enable_at_startup = 1
 
 let g:echodoc_enable_at_startup = 1
 
-let g:ycm_server_python_interpreter = '/usr/bin/python2'
+let g:ycm_server_python_interpreter = '/usr/bin/python2.7'
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<Tab>"

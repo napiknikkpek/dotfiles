@@ -1,24 +1,22 @@
 
-let g:clang_format_prog = '/usr/local/share/clang/clang-format.py'
-
 fu! s:clang_format_mappings()
-  noremap <buffer> <C-g> :exe 'pyf '.g:clang_format_prog<cr>
-  inoremap <buffer> <C-g> <Esc>:<C-u>exe 'pyf '.g:clang_format_prog<cr>a
+  noremap <buffer> <C-f> :pyf ~/party/llvm/tools/clang/tools/clang-format/clang-format.py<cr>
+  inoremap <buffer> <C-f> <C-o>:pyf ~/party/llvm/tools/clang/tools/clang-format/clang-format.py<cr>
 endfu
 
 fu! s:clang_format_all()
-  let l:lines = 'all'
-  exe 'pyf '.g:clang_format_prog
+  let l:formatdiff = 1
+  pyf ~/party/llvm/tools/clang/tools/clang-format/clang-format.py
 endfu
 
 fu! s:yapf_format_mappings()
-  nnoremap <C-g> :call yapf#YAPF()<cr>
-  inoremap <C-g> <C-o>:call yapf#YAPF()<cr>
+  nnoremap <C-K> :call yapf#YAPF()<cr>
+  inoremap <C-K> <C-o>:call yapf#YAPF()<cr>
 endfu
 
 augroup autoformat
   autocmd!
-  autocmd BufWritePre *.h,*.hpp,*.c,*.cpp call s:clang_format_all()
+  autocmd BufWritePre *.h,*.hpp,*.c,*.cc,*.cpp call s:clang_format_all()
   autocmd FileType c,cpp,js,java call s:clang_format_mappings()
   autocmd FileType python call s:yapf_format_mappings()
 augroup END
