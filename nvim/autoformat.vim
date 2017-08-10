@@ -10,8 +10,8 @@ fu! s:clang_format_all()
 endfu
 
 fu! s:yapf_format_mappings()
-  nnoremap <C-K> :call yapf#YAPF()<cr>
-  inoremap <C-K> <C-o>:call yapf#YAPF()<cr>
+  nnoremap <C-f> :call yapf#YAPF()<cr>
+  inoremap <C-f> <C-o>:call yapf#YAPF()<cr>
 endfu
 
 augroup autoformat

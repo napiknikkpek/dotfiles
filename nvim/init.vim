@@ -36,7 +36,7 @@ call dein#add('Valloric/YouCompleteMe')
 
 " call dein#add('Shougo/deoplete.nvim')
 " call dein#add('zchee/deoplete-clang')
-" call dein#add('zchee/deoplete-jedi')
+call dein#add('zchee/deoplete-jedi')
 
 call dein#add('Shougo/denite.nvim')
 
@@ -59,6 +59,7 @@ call dein#add('cohama/lexima.vim')
 call dein#add('Shougo/echodoc.vim')
 
 call dein#local('~/src/vim')
+call dein#local('~/party/yapf/plugins', {}, ['vim'])
 
 " Required:
 call dein#end()
