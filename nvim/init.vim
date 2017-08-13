@@ -34,7 +34,7 @@ call dein#add('Shougo/vimfiler.vim')
 
 call dein#add('Valloric/YouCompleteMe')
 
-" call dein#add('Shougo/deoplete.nvim')
+call dein#add('Shougo/deoplete.nvim')
 " call dein#add('zchee/deoplete-clang')
 call dein#add('zchee/deoplete-jedi')
 
@@ -86,18 +86,18 @@ call denite#custom#map('normal', '<Esc>', '<denite:quit>', 'noremap')
 
 let g:vimfiler_as_default_explorer = 1
 
-let set_compile_commands = {}
-fu! set_compile_commands.func(candidate)
-  call author#set(a:candidate.action__path)
-endfu
-call unite#custom#action('file', 'set_compile_commands', set_compile_commands)
-unlet set_compile_commands
+" let set_compile_commands = {}
+" fu! set_compile_commands.func(candidate)
+"   call author#set(a:candidate.action__path)
+" endfu
+" call unite#custom#action('file', 'set_compile_commands', set_compile_commands)
+" unlet set_compile_commands
 
 augroup map-source-custom
   autocmd!
   autocmd FileType vim nnoremap <buffer> <leader>ss :w<cr>:source %<cr>
-  autocmd FileType c,cpp 
-        \nnoremap <buffer> <leader>ss :w<cr>:call project#update()<cr>
+  " autocmd FileType c,cpp 
+  "       \nnoremap <buffer> <leader>ss :w<cr>:call project#update()<cr>
 augroup END
 
 set background=dark
@@ -179,11 +179,12 @@ nnoremap <C-W>k <C-W>K
 
 if has('nvim')
   nnoremap <leader>t :terminal<cr>
-  tnoremap <Esc> <C-\><C-N>
-  tnoremap <C-h> <Left>
-  tnoremap <C-l> <Right>
-  tnoremap <C-j> <Down>
-  tnoremap <C-k> <Up>
+  tnoremap <C-q> <C-\><C-N>
+
+  tnoremap <C-h> <C-\><C-N><C-W>h
+  tnoremap <C-l> <C-\><C-N><C-W>l
+  tnoremap <C-j> <C-\><C-N><C-W>j
+  tnoremap <C-k> <C-\><C-N><C-W>k
 
   tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 endif
