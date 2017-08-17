@@ -179,7 +179,8 @@ nnoremap <C-W>k <C-W>K
 
 if has('nvim')
   nnoremap <leader>t :terminal<cr>
-  tnoremap <C-q> <C-\><C-N>
+  tnoremap <Esc> <C-\><C-N>
+  tnoremap <C-o> <Esc>
 
   tnoremap <C-h> <C-\><C-N><C-W>h
   tnoremap <C-l> <C-\><C-N><C-W>l
@@ -187,6 +188,12 @@ if has('nvim')
   tnoremap <C-k> <C-\><C-N><C-W>k
 
   tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
+
+  augroup terminal-group
+    autocmd!
+    autocmd TermOpen term://* setlocal scrollback=10000
+    autocmd BufEnter term://* startinsert
+  augroup END
 endif
 
 cnoremap <C-h> <Left>
