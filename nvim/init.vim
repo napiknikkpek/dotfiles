@@ -48,6 +48,9 @@ call dein#add('tpope/vim-surround')
 call dein#add('tpope/vim-commentary')
 
 call dein#add('tpope/vim-fugitive')
+call dein#add('neoclide/vim-easygit')
+call dein#add('chemzqm/denite-git')
+call dein#add('jreybert/vimagit')
 call dein#add('airblade/vim-gitgutter')
 
 " call dein#add('tpope/vim-endwise')
@@ -77,7 +80,6 @@ filetype plugin indent on
 set runtimepath+=~/.config/nvim
 
 call denite#custom#option('default', 'prompt', '')
-call denite#custom#option('default', 'direction', 'topleft')
 call denite#custom#option('default', 'mode', 'normal')
 call denite#custom#option('default', 'auto_resize', 'true')
 call denite#custom#option('default', 'winheight', '30')
