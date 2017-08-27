@@ -86,6 +86,19 @@ call denite#custom#option('default', 'winheight', '30')
 call denite#custom#map('insert', '<Esc>', '<denite:quit>', 'noremap')
 call denite#custom#map('normal', '<Esc>', '<denite:quit>', 'noremap')
 
+call unite#custom#profile('default', 'context', {
+\   'direction': 'botright',
+\ })
+call unite#custom#profile('source/grep/git', 'context', {
+\   'no_quit' : 1
+\ })
+
+function! s:unite_my_settings()
+  nnoremap <buffer> <C-j> <C-W>j
+  nnoremap <buffer> <C-k> <C-W>k
+endfu
+autocmd FileType unite call s:unite_my_settings()
+
 let g:vimfiler_as_default_explorer = 1
 
 " let set_compile_commands = {}
