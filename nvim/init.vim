@@ -2,6 +2,8 @@ if !has('nvim')
   unlet! skip_defaults_vim
   source $VIMRUNTIME/defaults.vim
 endif
+
+set runtimepath+=/opt/puppetlabs/puppet/share/vim/puppet-vimfiles
     
 "dein Scripts-----------------------------
 
@@ -207,7 +209,7 @@ if has('nvim')
   augroup terminal-group
     autocmd!
     autocmd TermOpen term://* setlocal scrollback=10000
-    autocmd BufEnter term://* startinsert
+    " autocmd BufEnter term://* startinsert
   augroup END
 endif
 
@@ -220,6 +222,6 @@ vnoremap < <gv
 vnoremap > >gv
 
 " in screen quick select
-" nnoremap ; /<C-R>='\%>' . (line("w0")-1) . 'l\%<' . (line("w$")+1) . 'l'<cr>
+" nnoremap <leader>se /<C-R>='\%>' . (line("w0")-1) . 'l\%<' . (line("w$")+1) . 'l'<cr>
 
 nnoremap <leader>ev :edit $MYVIMRC<cr>
