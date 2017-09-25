@@ -117,6 +117,7 @@ augroup map-source-custom
   "       \nnoremap <buffer> <leader>ss :w<cr>:call project#update()<cr>
 augroup END
 
+" set termguicolors
 set background=dark
 colorscheme twilight256
 
@@ -170,7 +171,23 @@ nnoremap <leader>q :q<cr>
 nnoremap <leader>f :Denite unite:file file_rec<cr>
 nnoremap <leader>b :Denite buffer<cr>
 nnoremap <leader>l :Denite -mode=insert line<cr>
-nnoremap <leader>v :VimFiler<cr>
+
+fu! s:open_vimfiler()
+  if !exists('t:tab_vimfiler')
+    exe 'VimFiler'
+    let t:tab_vimfiler = bufnr('%')
+    return
+  endif
+
+  if bufwinnr(t:tab_vimfiler) > 0
+    exe 'VimFiler -create -force-quit'
+  else
+    " reuse existing buffer
+    exe 'VimFiler'
+  endif
+endfu
+nnoremap <leader>v :call <SID>open_vimfiler()<cr>
+
 nnoremap <leader>ex :exe 'VimFiler -toggle -explorer '.getcwd()<cr>
 nnoremap <leader>m :Denite file_mru<cr>
 nnoremap <leader>o :Denite unite:outline<cr>
@@ -209,7 +226,6 @@ if has('nvim')
   augroup terminal-group
     autocmd!
     autocmd TermOpen term://* setlocal scrollback=10000
-    " autocmd BufEnter term://* startinsert
   augroup END
 endif
 
