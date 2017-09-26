@@ -162,6 +162,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<Tab>"
 
 source ~/.config/nvim/autoformat.vim
 source ~/.config/nvim/cpp.vim
+source ~/.config/nvim/tabline.vim
 
 nnoremap ; :
 vnoremap ; :
