@@ -175,16 +175,16 @@ nnoremap <leader>l :Denite -mode=insert line<cr>
 
 fu! s:open_vimfiler()
   if !exists('t:tab_vimfiler')
-    exe 'VimFiler'
+    exe 'VimFiler ' . expand('%:p:h')
     let t:tab_vimfiler = bufnr('%')
     return
   endif
 
   if bufwinnr(t:tab_vimfiler) > 0
-    exe 'VimFiler -create -force-quit'
+    exe 'VimFiler -create -force-quit ' . expand('%:p:h')
   else
     " reuse existing buffer
-    exe 'VimFiler'
+    exe 'VimFiler ' . expand('%:p:h')
   endif
 endfu
 nnoremap <leader>v :call <SID>open_vimfiler()<cr>
