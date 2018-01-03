@@ -1,12 +1,12 @@
 
 fu! s:clang_format_mappings()
-  noremap <buffer> <C-f> :pyf ~/party/llvm/tools/clang/tools/clang-format/clang-format.py<cr>
-  inoremap <buffer> <C-f> <C-o>:pyf ~/party/llvm/tools/clang/tools/clang-format/clang-format.py<cr>
+  noremap <buffer> <C-f> :pyf /usr/share/clang/clang-format.py<cr>
+  inoremap <buffer> <C-f> <C-o>:pyf /usr/share/clang/clang-format.py<cr>
 endfu
 
 fu! s:clang_format_all()
   let l:formatdiff = 1
-  pyf ~/party/llvm/tools/clang/tools/clang-format/clang-format.py
+  pyf /usr/share/clang/clang-format.py
 endfu
 
 fu! s:yapf_format_mappings()

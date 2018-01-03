@@ -34,7 +34,7 @@ call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 
 call dein#add('Shougo/vimfiler.vim')
 
-call dein#add('Valloric/YouCompleteMe')
+" call dein#add('Valloric/YouCompleteMe')
 
 call dein#add('Shougo/deoplete.nvim')
 " call dein#add('zchee/deoplete-clang')
@@ -44,7 +44,7 @@ call dein#add('Shougo/denite.nvim')
 
 call dein#add('Shougo/neco-vim')
 
-call dein#add('arakashic/chromatica.nvim')
+" call dein#add('arakashic/chromatica.nvim')
 
 call dein#add('tpope/vim-surround')
 call dein#add('tpope/vim-commentary')
@@ -127,7 +127,7 @@ set number
 set relativenumber
 set ruler
 set showcmd
-set cmdheight=5
+set cmdheight=3
 set matchpairs=(:),{:},[:],<:>
 set incsearch
 set nohlsearch
@@ -193,10 +193,10 @@ nnoremap <leader>ex :exe 'VimFiler -toggle -explorer '.getcwd()<cr>
 nnoremap <leader>m :Denite file_mru<cr>
 nnoremap <leader>o :Denite unite:outline<cr>
 
-nnoremap <leader>gi :YcmCompleter GoToInclude<cr>
-nnoremap <leader>gc :YcmCompleter GoToDeclaration<cr>
-nnoremap <leader>gf :YcmCompleter GoToDefinition<cr>
-nnoremap <leader>gt :YcmCompleter GoTo<cr>
+" nnoremap <leader>gi :YcmCompleter GoToInclude<cr>
+" nnoremap <leader>gc :YcmCompleter GoToDeclaration<cr>
+" nnoremap <leader>gf :YcmCompleter GoToDefinition<cr>
+" nnoremap <leader>gt :YcmCompleter GoTo<cr>
 
 nnoremap <C-n> :cn<cr>
 nnoremap <C-p> :cp<cr>
@@ -224,10 +224,10 @@ if has('nvim')
 
   tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 
-  augroup terminal-group
-    autocmd!
-    autocmd TermOpen term://* setlocal scrollback=10000
-  augroup END
+  " augroup terminal-group
+  "   autocmd!
+  "   autocmd TermOpen term://* setlocal scrollback=10000
+  " augroup END
 endif
 
 cnoremap <C-h> <Left>
