@@ -6,12 +6,12 @@ import XMonad.Layout.NoBorders
 import XMonad.Util.EZConfig(additionalKeys)
 import System.IO
 
-startup = do
-  spawn "stalonetray -t --geometry 1x1-0 --grow-gravity SE --icon-gravity SE"
+-- startup = do
+--   spawn "stalonetray -t --geometry 1x1-0 --grow-gravity SE --icon-gravity SE"
 
 main = xmonad $ def {
     terminal = "termite",
-    startupHook = startup,
+    -- startupHook = startup,
     modMask = mod4Mask,
 --    manageHook = manageHook def <+> (className =? "stalonetray" --> doIgnore),
     layoutHook = smartBorders $ layoutHook def

@@ -18,7 +18,8 @@ call dein#begin(expand('~/.config/nvim/dein'))
 call dein#add('Shougo/dein.vim')
 
 " Add or remove your plugins here:
-call dein#add('vim-scripts/twilight256.vim')
+call dein#add('napiknikkpek/twilight256.vim')
+" call dein#add('ap/vim-css-color')
 
 call dein#add('thinca/vim-themis')
 
@@ -34,18 +35,28 @@ call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 
 call dein#add('Shougo/vimfiler.vim')
 
-" call dein#add('Valloric/YouCompleteMe')
-
 call dein#add('Shougo/deoplete.nvim')
-" call dein#add('zchee/deoplete-clang')
 call dein#add('zchee/deoplete-jedi')
 
 call dein#add('Shougo/denite.nvim')
 
 call dein#add('Shougo/neco-vim')
 
+" call dein#add('w0rp/ale')
+" call dein#add('autozimu/LanguageClient-neovim', {
+"     \ 'rev': 'next',
+"     \ 'build': 'bash install.sh',
+"     \ })
+
+" Chromatica has nice default colors, we need copy some to our colorscheme.
 " call dein#add('arakashic/chromatica.nvim')
 
+call dein#add('kana/vim-textobj-user')
+call dein#add('kana/vim-textobj-entire')
+call dein#add('kana/vim-textobj-fold')
+call dein#add('lucapette/vim-textobj-underscore')
+
+call dein#add('tpope/vim-unimpaired')
 call dein#add('tpope/vim-surround')
 call dein#add('tpope/vim-commentary')
 
@@ -58,6 +69,7 @@ call dein#add('airblade/vim-gitgutter')
 " call dein#add('tpope/vim-endwise')
 call dein#add('tpope/vim-eunuch')
 call dein#add('AndrewRadev/splitjoin.vim')
+call dein#add('ConradIrwin/vim-bracketed-paste')
 
 call dein#add('cohama/lexima.vim')
 
@@ -131,6 +143,7 @@ set cmdheight=3
 set matchpairs=(:),{:},[:],<:>
 set incsearch
 set nohlsearch
+" nnoremap <C-l> :<C-u>nohlsearch<cr><C-l>
 
 set tabstop=2
 set shiftwidth=2
@@ -150,9 +163,6 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#clang#libclang_path = '/usr/local/lib/libclang.so'
 let g:deoplete#sources#clang#clang_header = '/usr/local/lib/clang'
 
-let g:chromatica#libclang_path='/usr/local/lib/libclang.so'
-let g:chromatica#enable_at_startup = 1
-
 let g:echodoc_enable_at_startup = 1
 
 let g:ycm_server_python_interpreter = '/usr/bin/python2.7'
@@ -163,6 +173,19 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<Tab>"
 source ~/.config/nvim/autoformat.vim
 source ~/.config/nvim/cpp.vim
 source ~/.config/nvim/tabline.vim
+
+call denite#custom#var('grep', 'command', ['rg'])
+call denite#custom#var('grep', 'default_opts', ['--vimgrep'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+call denite#custom#var('grep', 'separator', ['--'])
+call denite#custom#var('grep', 'final_opts', [])
+
+nnoremap <leader>g :Denite -no-quit grep<cr>
+nnoremap <leader>r :Denite -no-quit -resume<cr>
+
+set grepprg=rg\ --vimgrep
+set grepformat^=%f:%l:%c:%m
 
 nnoremap ; :
 vnoremap ; :
@@ -192,6 +215,28 @@ nnoremap <leader>v :call <SID>open_vimfiler()<cr>
 nnoremap <leader>ex :exe 'VimFiler -toggle -explorer '.getcwd()<cr>
 nnoremap <leader>m :Denite file_mru<cr>
 nnoremap <leader>o :Denite unite:outline<cr>
+
+" let g:ale_linters = {
+"       \   'cpp': ['clang']
+"       \}
+
+" let g:ale_cpp_clang_options = '-std=c++17 -Wall -I /home/piknik/party/boost_1_66_0'
+" let g:ale_set_loclist = 0
+" let g:ale_set_quickfix = 1
+" let g:ale_lint_delay = 10
+
+" let g:LanguageClient_serverCommands = {
+"       \ 'cpp': ['cquery', '--log-file=/tmp/cquery.log'],
+"       \ } 
+" let g:LanguageClient_autoStart = 1
+" let g:LanguageClient_loadSettings = 1
+" let g:LanguageClient_settingsPath = '/home/piknik/.config/nvim/settings.json'
+
+" nnoremap <silent> gh :call LanguageClient_textDocument_hover()<CR>
+" nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+" nnoremap <silent> gr :call LanguageClient_textDocument_references()<CR>
+" nnoremap <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
+" nnoremap <silent> gm :call LanguageClient_textDocument_rename()<CR>
 
 " nnoremap <leader>gi :YcmCompleter GoToInclude<cr>
 " nnoremap <leader>gc :YcmCompleter GoToDeclaration<cr>
@@ -223,11 +268,6 @@ if has('nvim')
   tnoremap <C-k> <C-\><C-N><C-W>k
 
   tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
-
-  " augroup terminal-group
-  "   autocmd!
-  "   autocmd TermOpen term://* setlocal scrollback=10000
-  " augroup END
 endif
 
 cnoremap <C-h> <Left>
@@ -242,3 +282,7 @@ vnoremap > >gv
 " nnoremap <leader>se /<C-R>='\%>' . (line("w0")-1) . 'l\%<' . (line("w$")+1) . 'l'<cr>
 
 nnoremap <leader>ev :edit $MYVIMRC<cr>
+
+set fileencodings=utf-8,cp1251,default,latin1
+
+set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz

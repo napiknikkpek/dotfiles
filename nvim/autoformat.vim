@@ -22,7 +22,7 @@ endfu
 
 augroup autoformat
   autocmd!
-  autocmd BufWritePre *.h,*.hpp,*.c,*.cc,*.cpp call s:clang_format_all()
+  " autocmd BufWritePre *.h,*.hpp,*.c,*.cc,*.cpp call s:clang_format_all()
   autocmd FileType c,cpp,js,java call s:clang_format_mappings()
   autocmd BufWritePre *.py call s:yapf_format_all()
   autocmd FileType python call s:yapf_format_mappings()
