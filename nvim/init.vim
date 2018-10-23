@@ -43,10 +43,10 @@ call dein#add('Shougo/denite.nvim')
 call dein#add('Shougo/neco-vim')
 
 " call dein#add('w0rp/ale')
-" call dein#add('autozimu/LanguageClient-neovim', {
-"     \ 'rev': 'next',
-"     \ 'build': 'bash install.sh',
-"     \ })
+call dein#add('autozimu/LanguageClient-neovim', {
+    \ 'rev': 'next',
+    \ 'build': 'bash install.sh',
+    \ })
 
 " Chromatica has nice default colors, we need copy some to our colorscheme.
 " call dein#add('arakashic/chromatica.nvim')
@@ -139,7 +139,7 @@ set number
 set relativenumber
 set ruler
 set showcmd
-set cmdheight=3
+set cmdheight=4
 set matchpairs=(:),{:},[:],<:>
 set incsearch
 set nohlsearch
@@ -164,8 +164,6 @@ let g:deoplete#sources#clang#libclang_path = '/usr/local/lib/libclang.so'
 let g:deoplete#sources#clang#clang_header = '/usr/local/lib/clang'
 
 let g:echodoc_enable_at_startup = 1
-
-let g:ycm_server_python_interpreter = '/usr/bin/python2.7'
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<Tab>"
@@ -225,23 +223,22 @@ nnoremap <leader>o :Denite unite:outline<cr>
 " let g:ale_set_quickfix = 1
 " let g:ale_lint_delay = 10
 
-" let g:LanguageClient_serverCommands = {
-"       \ 'cpp': ['cquery', '--log-file=/tmp/cquery.log'],
-"       \ } 
-" let g:LanguageClient_autoStart = 1
-" let g:LanguageClient_loadSettings = 1
-" let g:LanguageClient_settingsPath = '/home/piknik/.config/nvim/settings.json'
+let g:LanguageClient_serverCommands = {
+      \ 'cpp': ['clangd'],
+      \ } 
+let g:LanguageClient_autoStart = 1
 
-" nnoremap <silent> gh :call LanguageClient_textDocument_hover()<CR>
-" nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-" nnoremap <silent> gr :call LanguageClient_textDocument_references()<CR>
-" nnoremap <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
-" nnoremap <silent> gm :call LanguageClient_textDocument_rename()<CR>
+fu! s:lsp_mapping()
+  nnoremap gd :call LanguageClient#textDocument_definition()<CR>
+  nnoremap gr :call LanguageClient#textDocument_rename()<CR>
+  nnoremap gx :call LanguageClient#textDocument_references()<CR>
+  nnoremap <leader>gm :call LanguageClient_contextMenu()<CR>
+endfu()
 
-" nnoremap <leader>gi :YcmCompleter GoToInclude<cr>
-" nnoremap <leader>gc :YcmCompleter GoToDeclaration<cr>
-" nnoremap <leader>gf :YcmCompleter GoToDefinition<cr>
-" nnoremap <leader>gt :YcmCompleter GoTo<cr>
+augroup lsp
+  autocmd!
+  autocmd FileType cpp,c call s:lsp_mapping()
+augroup END
 
 nnoremap <C-n> :cn<cr>
 nnoremap <C-p> :cp<cr>
