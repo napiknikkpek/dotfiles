@@ -32,6 +32,8 @@ call dein#add('Shougo/unite-outline')
 call dein#add('tsukkee/unite-tag')
 call dein#add('Shougo/neomru.vim')
 call dein#add('Shougo/vimproc.vim', {'build': 'make'})
+call dein#add('vim-jp/vim-cpp')
+call dein#add('sakhnik/nvim-gdb', {'build': './installer.sh'})
 
 call dein#add('Shougo/vimfiler.vim')
 
@@ -171,6 +173,8 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<Tab>"
 source ~/.config/nvim/autoformat.vim
 source ~/.config/nvim/cpp.vim
 source ~/.config/nvim/tabline.vim
+source ~/.config/nvim/debug.vim
+source ~/.config/nvim/qflist.vim
 
 call denite#custom#var('grep', 'command', ['rg'])
 call denite#custom#var('grep', 'default_opts', ['--vimgrep'])
@@ -192,7 +196,6 @@ nnoremap <leader>q :q<cr>
 
 nnoremap <leader>f :Denite unite:file file_rec<cr>
 nnoremap <leader>b :Denite buffer<cr>
-nnoremap <leader>l :Denite -mode=insert line<cr>
 
 fu! s:open_vimfiler()
   if !exists('t:tab_vimfiler')
@@ -239,10 +242,6 @@ augroup lsp
   autocmd!
   autocmd FileType cpp,c call s:lsp_mapping()
 augroup END
-
-nnoremap <C-n> :cn<cr>
-nnoremap <C-p> :cp<cr>
-nnoremap <C-c> :cc<cr>
 
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
