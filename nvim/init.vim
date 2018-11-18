@@ -95,16 +95,21 @@ filetype plugin indent on
 
 set runtimepath+=~/.config/nvim
 
-call denite#custom#option('default', 'prompt', '')
-call denite#custom#option('default', 'mode', 'normal')
-call denite#custom#option('default', 'auto_resize', 'true')
-call denite#custom#option('default', 'winheight', '30')
+call denite#custom#option('_', {
+    \ 'prompt': '',
+    \ 'mode': 'normal',
+    \ 'direction': 'topleft',
+    \ 'auto_resize': v:true,
+    \ 'winminheight': 10,
+    \ 'vertical_preview': v:true
+    \ })
+
+call denite#custom#source('_', 'matchers', ['matcher/substring'])
+call denite#custom#source('_', 'sorters', ['sorter/rank'])
+
 call denite#custom#map('insert', '<Esc>', '<denite:quit>', 'noremap')
 call denite#custom#map('normal', '<Esc>', '<denite:quit>', 'noremap')
 
-call unite#custom#profile('default', 'context', {
-\   'direction': 'botright',
-\ })
 call unite#custom#profile('source/grep/git', 'context', {
 \   'no_quit' : 1
 \ })
@@ -217,14 +222,15 @@ nnoremap <leader>ex :exe 'VimFiler -toggle -explorer '.getcwd()<cr>
 nnoremap <leader>m :Denite file_mru<cr>
 nnoremap <leader>o :Denite unite:outline<cr>
 
-" let g:ale_linters = {
-"       \   'cpp': ['clang']
-"       \}
+call denite#custom#source('tag', 'matchers', ['matcher/substring'])
 
-" let g:ale_cpp_clang_options = '-std=c++17 -Wall -I /home/piknik/party/boost_1_66_0'
-" let g:ale_set_loclist = 0
-" let g:ale_set_quickfix = 1
-" let g:ale_lint_delay = 10
+fu! s:2tag()
+  normal! m'
+  Denite -input=`expand("<cword>")` -immediately-1 -no-ignorecase
+    \ -no-empty -auto-preview tag
+endfu
+
+nnoremap gz :<C-u>call <SID>2tag()<cr>
 
 let g:LanguageClient_serverCommands = {
       \ 'cpp': ['clangd'],
