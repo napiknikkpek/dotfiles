@@ -32,8 +32,7 @@ call dein#add('Shougo/unite-outline')
 call dein#add('tsukkee/unite-tag')
 call dein#add('Shougo/neomru.vim')
 call dein#add('Shougo/vimproc.vim', {'build': 'make'})
-call dein#add('vim-jp/vim-cpp')
-call dein#add('sakhnik/nvim-gdb', {'build': './installer.sh'})
+" call dein#add('sakhnik/nvim-gdb', {'build': './installer.sh'})
 
 call dein#add('Shougo/vimfiler.vim')
 
@@ -129,12 +128,7 @@ let g:vimfiler_as_default_explorer = 1
 " call unite#custom#action('file', 'set_compile_commands', set_compile_commands)
 " unlet set_compile_commands
 
-augroup map-source-custom
-  autocmd!
-  autocmd FileType vim nnoremap <buffer> <leader>ss :w<cr>:source %<cr>
-  " autocmd FileType c,cpp 
-  "       \nnoremap <buffer> <leader>ss :w<cr>:call project#update()<cr>
-augroup END
+nnoremap <leader>ss :source $MYVIMRC<cr>
 
 " set termguicolors
 set background=dark
@@ -167,8 +161,9 @@ let g:lexima_no_default_rules = 1
 call lexima#set_default_rules()
 
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#clang#libclang_path = '/usr/local/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header = '/usr/local/lib/clang'
+call deoplete#custom#source('LanguageClient',
+  \ 'min_pattern_length',
+  \ 2)
 
 let g:echodoc_enable_at_startup = 1
 
@@ -238,10 +233,11 @@ let g:LanguageClient_serverCommands = {
 let g:LanguageClient_autoStart = 1
 
 fu! s:lsp_mapping()
-  nnoremap gd :call LanguageClient#textDocument_definition()<CR>
-  nnoremap gr :call LanguageClient#textDocument_rename()<CR>
-  nnoremap gx :call LanguageClient#textDocument_references()<CR>
-  nnoremap <leader>gm :call LanguageClient_contextMenu()<CR>
+  nnoremap gd :call LanguageClient#textDocument_definition()<cr>
+  nnoremap gr :call LanguageClient#textDocument_rename()<cr>
+  nnoremap gx :call LanguageClient#textDocument_references()<cr>
+  nnoremap gf :call LanguageClient#textDocument_formatting()<cr>
+  nnoremap gm :Denite contextMenu<cr>
 endfu()
 
 augroup lsp
@@ -286,5 +282,9 @@ vnoremap > >gv
 nnoremap <leader>ev :edit $MYVIMRC<cr>
 
 set fileencodings=utf-8,cp1251,default,latin1
+
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
