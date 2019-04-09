@@ -109,10 +109,6 @@ call denite#custom#source('_', 'sorters', ['sorter/rank'])
 call denite#custom#map('insert', '<Esc>', '<denite:quit>', 'noremap')
 call denite#custom#map('normal', '<Esc>', '<denite:quit>', 'noremap')
 
-call unite#custom#profile('source/grep/git', 'context', {
-\   'no_quit' : 1
-\ })
-
 let mapleader=","
 
 nnoremap <leader>ss :source $MYVIMRC<cr>
