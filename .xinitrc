@@ -12,8 +12,6 @@ xmodmap -e 'keycode 66 = Control_L'
 xmodmap -e 'add Mod4 = Control_R'
 xmodmap -e 'add Control = Control_L'
 
-skypeforlinux &
-icq &
-slack &
+skype &
 
 exec xmonad

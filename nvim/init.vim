@@ -34,7 +34,7 @@ call dein#add('Shougo/neomru.vim')
 call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 " call dein#add('sakhnik/nvim-gdb', {'build': './installer.sh'})
 
-call dein#add('Shougo/vimfiler.vim')
+call dein#add('Shougo/defx.nvim')
 
 call dein#add('Shougo/deoplete.nvim')
 call dein#add('zchee/deoplete-jedi')
@@ -113,20 +113,7 @@ call unite#custom#profile('source/grep/git', 'context', {
 \   'no_quit' : 1
 \ })
 
-function! s:unite_my_settings()
-  nnoremap <buffer> <C-j> <C-W>j
-  nnoremap <buffer> <C-k> <C-W>k
-endfu
-autocmd FileType unite call s:unite_my_settings()
-
-let g:vimfiler_as_default_explorer = 1
-
-" let set_compile_commands = {}
-" fu! set_compile_commands.func(candidate)
-"   call author#set(a:candidate.action__path)
-" endfu
-" call unite#custom#action('file', 'set_compile_commands', set_compile_commands)
-" unlet set_compile_commands
+let mapleader=","
 
 nnoremap <leader>ss :source $MYVIMRC<cr>
 
@@ -153,8 +140,6 @@ set expandtab
 set laststatus=2
 set shortmess=aTIcF
 set completeopt=menuone,noinsert
-
-let mapleader=","
 
 let g:lexima_map_escape=''
 let g:lexima_no_default_rules = 1
@@ -183,7 +168,7 @@ call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
 call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
 
-nnoremap <leader>g :Denite -no-quit grep<cr>
+nnoremap <leader>gg :Denite -post-action=open grep<cr>
 nnoremap <leader>r :Denite -no-quit -resume<cr>
 
 set grepprg=rg\ --vimgrep
@@ -197,35 +182,19 @@ nnoremap <leader>q :q<cr>
 nnoremap <leader>f :Denite unite:file file_rec<cr>
 nnoremap <leader>b :Denite buffer<cr>
 
-fu! s:open_vimfiler()
-  if !exists('t:tab_vimfiler')
-    exe 'VimFiler ' . expand('%:p:h')
-    let t:tab_vimfiler = bufnr('%')
-    return
-  endif
-
-  if bufwinnr(t:tab_vimfiler) > 0
-    exe 'VimFiler -create -force-quit ' . expand('%:p:h')
+fu! s:open_defx()
+  let @#=expand('%:p')
+  if empty(filter(map(tabpagebuflist(), 
+    \ 'getbufvar(v:val, "&filetype")'), 'v:val == "defx"'))
+    :Defx `expand('%:p:h')` -search=`expand('%:p')`
   else
-    " reuse existing buffer
-    exe 'VimFiler ' . expand('%:p:h')
+    :Defx -new `expand('%:p:h')` -search=`expand('%:p')`
   endif
 endfu
-nnoremap <leader>v :call <SID>open_vimfiler()<cr>
 
-nnoremap <leader>ex :exe 'VimFiler -toggle -explorer '.getcwd()<cr>
+nnoremap <leader>v :call <SID>open_defx()<cr>
 nnoremap <leader>m :Denite file_mru<cr>
 nnoremap <leader>o :Denite unite:outline<cr>
-
-call denite#custom#source('tag', 'matchers', ['matcher/substring'])
-
-fu! s:2tag()
-  normal! m'
-  Denite -input=`expand("<cword>")` -immediately-1 -no-ignorecase
-    \ -no-empty -auto-preview tag
-endfu
-
-nnoremap gz :<C-u>call <SID>2tag()<cr>
 
 let g:LanguageClient_serverCommands = {
       \ 'cpp': ['clangd'],
@@ -236,8 +205,8 @@ fu! s:lsp_mapping()
   nnoremap gd :call LanguageClient#textDocument_definition()<cr>
   nnoremap gr :call LanguageClient#textDocument_rename()<cr>
   nnoremap gx :call LanguageClient#textDocument_references()<cr>
-  nnoremap gf :call LanguageClient#textDocument_formatting()<cr>
-  nnoremap gm :Denite contextMenu<cr>
+  nnoremap <leader>gf :call LanguageClient#textDocument_formatting()<cr>
+  nnoremap <leader>gm :Denite contextMenu<cr>
 endfu()
 
 augroup lsp
