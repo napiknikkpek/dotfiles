@@ -31,7 +31,24 @@ nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
 nnoremap <silent><buffer><expr> k line('.') == 1 ? 'G' : 'k'
 nnoremap <silent><buffer><expr> <C-g> defx#do_action('print')
 
-fu! Set_pwd(ctx) abort
-  exe 'cd '.(a:ctx.targets[0])
+fu! s:chdir(candidate) abort
+  let dir = a:candidate.is_directory 
+    \ ? a:candidate.action__path
+    \ : fnamemodify(a:candidate.action__path, ':p:h')
+  exe 'cd '. dir
 endfu
-nnoremap <silent><buffer><expr> cd defx#do_action('call', 'Set_pwd')
+nnoremap <silent><buffer> cd :call <SID>chdir(defx#get_candidate())<cr>
+
+fu! s:grep(file) abort
+  exe 'Denite -post-action=open grep:'. a:file . '::' 
+endfu
+nnoremap <silent><buffer> gr 
+  \ :call <SID>grep(defx#get_candidate().action__path)<cr> 
+
+fu! s:find(candidate) abort
+  let dir = a:candidate.is_directory 
+    \ ? a:candidate.action__path
+    \ : fnamemodify(a:candidate.action__path, ':p:h')
+  exe 'Denite -mode=insert file/rec:'. dir
+endfu
+nnoremap <silent><buffer> gf :call <SID>find(defx#get_candidate())<cr> 
