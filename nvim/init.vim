@@ -4,7 +4,7 @@ if !has('nvim')
 endif
 
 set runtimepath+=/opt/puppetlabs/puppet/share/vim/puppet-vimfiles
-    
+
 "dein Scripts-----------------------------
 
 " Required:
@@ -62,9 +62,6 @@ call dein#add('tpope/vim-surround')
 call dein#add('tpope/vim-commentary')
 
 call dein#add('tpope/vim-fugitive')
-call dein#add('neoclide/vim-easygit')
-call dein#add('chemzqm/denite-git')
-call dein#add('jreybert/vimagit')
 call dein#add('airblade/vim-gitgutter')
 
 " call dein#add('tpope/vim-endwise')
@@ -136,6 +133,8 @@ set expandtab
 set laststatus=2
 set shortmess=aTIcF
 set completeopt=menuone,noinsert
+
+set diffopt=filler,internal,algorithm:histogram,indent-heuristic
 
 let g:lexima_map_escape=''
 let g:lexima_no_default_rules = 1
