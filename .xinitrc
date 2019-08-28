@@ -1,4 +1,4 @@
-feh --bg-scale ~/.dotfiles/arch_linux_flat_wallpaper.jpg
+feh --bg-scale ~/dotfiles/arch_linux_flat_wallpaper.jpg
 
 setxkbmap -layout 'us,ru' -variant ',' -option 'grp:alt_shift_toggle'
 
