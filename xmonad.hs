@@ -10,7 +10,7 @@ import System.IO
 --   spawn "stalonetray -t --geometry 1x1-0 --grow-gravity SE --icon-gravity SE"
 
 main = xmonad $ def {
-    terminal = "termite",
+    terminal = "alacritty",
     -- startupHook = startup,
     modMask = mod4Mask,
 --    manageHook = manageHook def <+> (className =? "stalonetray" --> doIgnore),

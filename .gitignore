@@ -2,3 +2,4 @@
 nvim/autoload/yapf.vim
 nvim/dein/
 nvim/installer.sh
+tags

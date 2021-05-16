@@ -19,13 +19,17 @@ call dein#add('Shougo/dein.vim')
 
 " Add or remove your plugins here:
 call dein#add('napiknikkpek/twilight256.vim')
-" call dein#add('ap/vim-css-color')
+
+call dein#add('ap/vim-css-color')
 
 call dein#add('thinca/vim-themis')
+call dein#add('thinca/vim-localrc')
 
 call dein#add('vim-jp/vital.vim')
 
 call dein#add('Shougo/vinarise.vim')
+
+call dein#add('ludovicchabant/vim-gutentags')
 
 call dein#add('Shougo/unite.vim')
 call dein#add('Shougo/unite-outline')
@@ -38,19 +42,15 @@ call dein#add('Shougo/defx.nvim')
 
 call dein#add('Shougo/deoplete.nvim')
 call dein#add('zchee/deoplete-jedi')
+" call dein#add('Shougo/deoplete-lsp')
 
 call dein#add('Shougo/denite.nvim')
 
 call dein#add('Shougo/neco-vim')
 
 " call dein#add('w0rp/ale')
-call dein#add('autozimu/LanguageClient-neovim', {
-    \ 'rev': 'next',
-    \ 'build': 'bash install.sh',
-    \ })
 
-" Chromatica has nice default colors, we need copy some to our colorscheme.
-" call dein#add('arakashic/chromatica.nvim')
+" call dein#add('neovim/nvim-lsp')
 
 call dein#add('kana/vim-textobj-user')
 call dein#add('kana/vim-textobj-entire')
@@ -72,6 +72,10 @@ call dein#add('ConradIrwin/vim-bracketed-paste')
 call dein#add('cohama/lexima.vim')
 
 call dein#add('Shougo/echodoc.vim')
+
+call dein#add('neovimhaskell/haskell-vim')
+
+call dein#add('cespare/vim-toml')
 
 call dein#local('~/src/vim')
 call dein#local('~/party/yapf/plugins', {}, ['vim'])
@@ -136,14 +140,13 @@ set completeopt=menuone,noinsert
 
 set diffopt=filler,internal,algorithm:histogram,indent-heuristic
 
+let g:gutentags_ctags_extra_args = ['--kinds-C++=+p']
+
 let g:lexima_map_escape=''
 let g:lexima_no_default_rules = 1
 call lexima#set_default_rules()
 
 let g:deoplete#enable_at_startup = 1
-call deoplete#custom#source('LanguageClient',
-  \ 'min_pattern_length',
-  \ 2)
 
 let g:echodoc_enable_at_startup = 1
 
@@ -191,23 +194,20 @@ nnoremap <leader>v :call <SID>open_defx()<cr>
 nnoremap <leader>m :Denite file_mru<cr>
 nnoremap <leader>o :Denite unite:outline<cr>
 
-let g:LanguageClient_serverCommands = {
-      \ 'cpp': ['clangd'],
-      \ } 
-let g:LanguageClient_autoStart = 1
+" lua require'nvim_lsp'.clangd.setup{cmd = { "clangd" }}
 
-fu! s:lsp_mapping()
-  nnoremap gd :call LanguageClient#textDocument_definition()<cr>
-  nnoremap gr :call LanguageClient#textDocument_rename()<cr>
-  nnoremap gx :call LanguageClient#textDocument_references()<cr>
-  nnoremap <leader>gf :call LanguageClient#textDocument_formatting()<cr>
-  nnoremap <leader>gm :Denite contextMenu<cr>
-endfu()
+" fu! s:lsp_mapping()
+"   nnoremap gd    <cmd>lua vim.lsp.buf.declaration()<cr>
+"   " nnoremap <c-]> <cmd>lua vim.lsp.buf.definition()<cr>
+"   nnoremap K     <cmd>lua vim.lsp.buf.hover()<cr>
+"   " nnoremap <c-k> <cmd>lua vim.lsp.buf.signature_help()<cr>
+"   nnoremap gr    <cmd>lua vim.lsp.buf.references()<cr>
+" endfu()
 
-augroup lsp
-  autocmd!
-  autocmd FileType cpp,c call s:lsp_mapping()
-augroup END
+" augroup lsp
+"   autocmd!
+"   autocmd FileType cpp,c call s:lsp_mapping()
+" augroup END
 
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
@@ -241,7 +241,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " in screen quick select
-" nnoremap <leader>se /<C-R>='\%>' . (line("w0")-1) . 'l\%<' . (line("w$")+1) . 'l'<cr>
+nnoremap <leader>es /<C-R>='\%>' . (line("w0")-1) . 'l\%<' . (line("w$")+1) . 'l'<cr>
 
 nnoremap <leader>ev :edit $MYVIMRC<cr>
 
