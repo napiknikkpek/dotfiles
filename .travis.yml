@@ -1,8 +1,7 @@
 dist: focal
-
+language: cpp
 services:
   - docker
-
 script:
   - docker build -t dotfiles .
   - docker run -v `pwd`:/home/piknik/dotfiles dotfiles /usr/bin/zsh "-c" "~/dotfiles/install.sh"
