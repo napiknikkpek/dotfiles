@@ -239,6 +239,8 @@ cnoremap <C-k> <Up>
 
 vnoremap < <gv
 vnoremap > >gv
+vnoremap J :m '>+1<cr>gv=gv
+vnoremap K :m '<-2<cr>gv=gv
 
 " in screen quick select
 nnoremap <leader>es /<C-R>='\%>' . (line("w0")-1) . 'l\%<' . (line("w$")+1) . 'l'<cr>
