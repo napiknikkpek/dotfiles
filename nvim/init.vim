@@ -124,7 +124,7 @@ set number
 set relativenumber
 set ruler
 set showcmd
-set cmdheight=4
+set cmdheight=2
 set matchpairs=(:),{:},[:],<:>
 set incsearch
 set nohlsearch
@@ -237,13 +237,18 @@ cnoremap <C-l> <Right>
 cnoremap <C-j> <Down>
 cnoremap <C-k> <Up>
 
+nnoremap j gj
+nnoremap k gk
+nnoremap 0 g0
+nnoremap ^ g^
+nnoremap $ g$
 vnoremap < <gv
 vnoremap > >gv
 vnoremap J :m '>+1<cr>gv=gv
 vnoremap K :m '<-2<cr>gv=gv
 
 " in screen quick select
-nnoremap <leader>es /<C-R>='\%>' . (line("w0")-1) . 'l\%<' . (line("w$")+1) . 'l'<cr>
+nnoremap <silent> <leader>ee /<C-R>='\%>' . (line("w0")-1) . 'l\%<' . (line("w$")+1) . 'l'<cr>
 
 nnoremap <leader>ev :edit $MYVIMRC<cr>
 
