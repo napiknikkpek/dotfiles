@@ -7,7 +7,6 @@ RUN pacman -Sy --noconfirm \
         xorg \
         xorg-xinit \
         neovim \
-        termite \
         alacritty \
         ttf-hack \
         adobe-source-code-pro-fonts \
